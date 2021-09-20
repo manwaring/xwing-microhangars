@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/xwing-microhangars/static/css/main.0b4874e1.chunk.css",
-    "main.js": "/xwing-microhangars/static/js/main.7db9743b.chunk.js",
-    "main.js.map": "/xwing-microhangars/static/js/main.7db9743b.chunk.js.map",
+    "main.js": "/xwing-microhangars/static/js/main.96e709fb.chunk.js",
+    "main.js.map": "/xwing-microhangars/static/js/main.96e709fb.chunk.js.map",
     "runtime-main.js": "/xwing-microhangars/static/js/runtime-main.09124e49.js",
     "runtime-main.js.map": "/xwing-microhangars/static/js/runtime-main.09124e49.js.map",
     "static/js/2.445c5e13.chunk.js": "/xwing-microhangars/static/js/2.445c5e13.chunk.js",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.09124e49.js",
     "static/js/2.445c5e13.chunk.js",
     "static/css/main.0b4874e1.chunk.css",
-    "static/js/main.7db9743b.chunk.js"
+    "static/js/main.96e709fb.chunk.js"
   ]
 }
