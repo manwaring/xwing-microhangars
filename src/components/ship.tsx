@@ -103,7 +103,6 @@ export const Ship = ({ ship, faction, useFactionColor }: ShipProps) => {
     dimensions: { height, width, length },
   } = ship;
   const shipHeight = `${height}mm`;
-  const shipHeightWithPadding = `${height + 2}mm`;
   const shipWidth = `${width}mm`;
   const shipLength = `${length}mm`;
 
@@ -120,12 +119,7 @@ export const Ship = ({ ship, faction, useFactionColor }: ShipProps) => {
             <td colSpan={3}></td>
           </tr>
 
-          <tr
-            style={{
-              height: shipHeightWithPadding,
-              maxHeight: shipHeightWithPadding,
-            }}
-          >
+          <tr style={{ height: shipHeight, maxHeight: shipHeight }}>
             <td
               className="flap-left cut-left cut-top"
               style={{
@@ -180,7 +174,7 @@ export const Ship = ({ ship, faction, useFactionColor }: ShipProps) => {
             <td></td>
           </tr>
 
-          <tr style={{ height: shipHeightWithPadding }}>
+          <tr style={{ height: shipHeight }}>
             <td
               className="cut-left cut-bottom glue"
               style={{ width: shipHeight, maxWidth: shipHeight }}
