@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/xwing-microhangars/static/css/main.c61b2b91.css",
-    "main.js": "/xwing-microhangars/static/js/main.a7de628d.js",
+    "main.js": "/xwing-microhangars/static/js/main.7a77d2de.js",
     "static/js/787.75f72b40.chunk.js": "/xwing-microhangars/static/js/787.75f72b40.chunk.js",
     "static/media/xwing-miniatures.ttf": "/xwing-microhangars/static/media/xwing-miniatures.7ff0d4a8f0830de44214.ttf",
     "static/media/xwing-miniatures-ships.ttf": "/xwing-microhangars/static/media/xwing-miniatures-ships.3f180f546ea7c3c126a6.ttf",
     "index.html": "/xwing-microhangars/index.html",
     "main.c61b2b91.css.map": "/xwing-microhangars/static/css/main.c61b2b91.css.map",
-    "main.a7de628d.js.map": "/xwing-microhangars/static/js/main.a7de628d.js.map",
+    "main.7a77d2de.js.map": "/xwing-microhangars/static/js/main.7a77d2de.js.map",
     "787.75f72b40.chunk.js.map": "/xwing-microhangars/static/js/787.75f72b40.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c61b2b91.css",
-    "static/js/main.a7de628d.js"
+    "static/js/main.7a77d2de.js"
   ]
 }
