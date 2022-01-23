@@ -1,23 +1,17 @@
 {
   "files": {
-    "main.css": "/xwing-microhangars/static/css/main.0b4874e1.chunk.css",
-    "main.js": "/xwing-microhangars/static/js/main.32d68c94.chunk.js",
-    "main.js.map": "/xwing-microhangars/static/js/main.32d68c94.chunk.js.map",
-    "runtime-main.js": "/xwing-microhangars/static/js/runtime-main.442dbcca.js",
-    "runtime-main.js.map": "/xwing-microhangars/static/js/runtime-main.442dbcca.js.map",
-    "static/js/2.4ac753cf.chunk.js": "/xwing-microhangars/static/js/2.4ac753cf.chunk.js",
-    "static/js/2.4ac753cf.chunk.js.map": "/xwing-microhangars/static/js/2.4ac753cf.chunk.js.map",
-    "static/js/3.a59abb6a.chunk.js": "/xwing-microhangars/static/js/3.a59abb6a.chunk.js",
-    "static/js/3.a59abb6a.chunk.js.map": "/xwing-microhangars/static/js/3.a59abb6a.chunk.js.map",
+    "main.css": "/xwing-microhangars/static/css/main.c61b2b91.css",
+    "main.js": "/xwing-microhangars/static/js/main.a7de628d.js",
+    "static/js/787.75f72b40.chunk.js": "/xwing-microhangars/static/js/787.75f72b40.chunk.js",
+    "static/media/xwing-miniatures.ttf": "/xwing-microhangars/static/media/xwing-miniatures.7ff0d4a8f0830de44214.ttf",
+    "static/media/xwing-miniatures-ships.ttf": "/xwing-microhangars/static/media/xwing-miniatures-ships.3f180f546ea7c3c126a6.ttf",
     "index.html": "/xwing-microhangars/index.html",
-    "static/css/main.0b4874e1.chunk.css.map": "/xwing-microhangars/static/css/main.0b4874e1.chunk.css.map",
-    "static/js/2.4ac753cf.chunk.js.LICENSE.txt": "/xwing-microhangars/static/js/2.4ac753cf.chunk.js.LICENSE.txt",
-    "static/media/ship.css": "/xwing-microhangars/static/media/xwing-miniatures.7ff0d4a8.ttf"
+    "main.c61b2b91.css.map": "/xwing-microhangars/static/css/main.c61b2b91.css.map",
+    "main.a7de628d.js.map": "/xwing-microhangars/static/js/main.a7de628d.js.map",
+    "787.75f72b40.chunk.js.map": "/xwing-microhangars/static/js/787.75f72b40.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.442dbcca.js",
-    "static/js/2.4ac753cf.chunk.js",
-    "static/css/main.0b4874e1.chunk.css",
-    "static/js/main.32d68c94.chunk.js"
+    "static/css/main.c61b2b91.css",
+    "static/js/main.a7de628d.js"
   ]
 }
