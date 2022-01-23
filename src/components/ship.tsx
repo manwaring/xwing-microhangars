@@ -1,119 +1,208 @@
-import './ship.css';
-import { Ship as ShipInterface, Faction } from '../data';
+import "./ship.css";
+import { Ship as ShipData, Faction, Panel as PanelInterface } from "../data";
 
-interface AllProps {
-  ship: ShipInterface;
+interface ShipProps {
+  ship: ShipData;
   faction: Faction;
   useFactionColor: boolean;
 }
 
-const Display = ({ ship, faction, useFactionColor }: AllProps) => {
-  const factionColor = useFactionColor ? { color: faction.color } : {};
-  const displayFactionSize = ship.displayFactionSize ? { fontSize: `${ship.displayFactionSize}mm`} : {};
-  const displayIconSize = ship.displayIconSize ? { fontSize: `${ship.displayIconSize}mm` } : {};
-
-  return <>
-    <div className="icon shipFaction" style={{ ...displayFactionSize, ...factionColor }}>{faction.icon}</div>
-    <div className="fancy">{ship.name}</div>
-    <div className="ship" style={displayIconSize}>{ship.icon}</div>
-  </>;
+interface PanelProps {
+  ship: ShipData;
+  faction: Faction;
+  panel: PanelInterface;
+  useFactionColor: boolean;
 }
 
-const DisplayTop = ({ ship, faction, useFactionColor }: AllProps) => {
+const PrimaryPanel = ({ ship, faction, useFactionColor }: ShipProps) => {
+  const panel = ship.panels.primary;
+
+  return (
+    <span className="panel-wrapper">
+      <Panel {...{ faction, ship, panel, useFactionColor }} />
+    </span>
+  );
+};
+
+const TopPanel = ({ ship, faction, useFactionColor }: ShipProps) => {
+  const panel = ship.panels.topAndBottom;
+
+  return panel ? (
+    <span className="panel-wrapper upside-down">
+      <Panel {...{ faction, ship, panel, useFactionColor }} />
+    </span>
+  ) : (
+    <></>
+  );
+};
+
+const BottomPanel = ({ ship, faction, useFactionColor }: ShipProps) => {
+  const panel = ship.panels.topAndBottom;
+
+  return panel ? (
+    <span className="panel-wrapper bottom-panel">
+      <Panel {...{ faction, ship, panel, useFactionColor }} />
+    </span>
+  ) : (
+    <></>
+  );
+};
+
+const LeftSidePanel = ({ ship, faction, useFactionColor }: ShipProps) => {
+  const panel = ship.panels.sides;
+
+  return panel ? (
+    <span className="panel-wrapper rotate-left">
+      <Panel {...{ faction, ship, panel, useFactionColor }} />
+    </span>
+  ) : (
+    <></>
+  );
+};
+
+const RightSidePanel = ({ ship, faction, useFactionColor }: ShipProps) => {
+  const panel = ship.panels.sides;
+
+  return panel ? (
+    <span className="panel-wrapper rotate-right">
+      <Panel {...{ faction, ship, panel, useFactionColor }} />
+    </span>
+  ) : (
+    <></>
+  );
+};
+
+const Panel = ({ ship, faction, panel, useFactionColor }: PanelProps) => {
+  const factionIconSize = { fontSize: `${panel.factionIconSize}mm` };
   const factionColor = useFactionColor ? { color: faction.color } : {};
-  const displayTopFactionSize = ship.displayTopFactionSize ? { fontSize: `${ship.displayTopFactionSize}mm`} : {};
-  const displayTopIconSize = ship.displayTopIconSize ? { fontSize: `${ship.displayTopIconSize}mm` } : {};
+  const factionStyle = { ...factionIconSize, ...factionColor };
 
-  return !("displayTop" in ship) || ship.displayTop ? <>
-    <div className="icon shipFaction" style={{ ...displayTopFactionSize, ...factionColor }}>{faction.icon}</div>
-    <div className="fancy">{ship.name}</div>
-    <div className="ship" style={displayTopIconSize}>{ship.icon}</div>
-  </> : <></>;
-}
+  const shipIconSize = { fontSize: `${panel.shipIconSize}mm` };
+  const shipIconMargin = panel.shipIconMargin
+    ? { margin: `${panel.shipIconMargin}%` }
+    : ship.iconMargin
+    ? { margin: `${ship.iconMargin}%` }
+    : {};
+  const iconStyle = { ...shipIconSize, ...shipIconMargin };
 
-const DisplaySide = ({ ship, faction, useFactionColor }: AllProps) => {
-  const factionColor = useFactionColor ? { color: faction.color } : {};
-  const displaySideFactionSize = ship.displaySideFactionSize ? { fontSize: `${ship.displaySideFactionSize}mm`} : {};
-  const displaySideIconSize = ship.displaySideIconSize ? { fontSize: `${ship.displaySideIconSize}mm` } : {};
+  return (
+    <>
+      <div className="faction" style={factionStyle}>
+        {faction.icon}
+      </div>
+      <div className="ship-name">{ship.name}</div>
+      <div className="ship" style={iconStyle}>
+        {ship.icon}
+      </div>
+    </>
+  );
+};
 
-  return !("displaySide" in ship) || ship.displaySide ? <>
-    <div className="icon shipFaction" style={{ ...displaySideFactionSize, ...factionColor }}>{faction.icon}</div>
-    <div className="fancy">{ship.name}</div>
-    <div className="ship" style={displaySideIconSize}>{ship.icon}</div>
-  </> : <></>;
-}
+export const Ship = ({ ship, faction, useFactionColor }: ShipProps) => {
+  const {
+    dimensions: { height, width, length },
+  } = ship;
+  const shipHeight = `${height}mm`;
+  const shipHeightWithPadding = `${height + 2}mm`;
+  const shipWidth = `${width}mm`;
+  const shipLength = `${length}mm`;
 
-export const Ship = ({ ship, faction, useFactionColor }: AllProps) => {
-
-  const shipHeight = `${ship.height}mm`;
-  const shipHeightPlus = `${ship.height + 2}mm`
-
-  const shipWidth = `${ship.width}mm`;
-
-  const shipLength = `${ship.length}mm`;
-
-  let sideLeftOffset = 0;
-  if (ship.sideLeftOffset || ship.displaySide) {
-    sideLeftOffset = ship.sideLeftOffset;
-  }
-  let sideRightOffset = sideLeftOffset;
-  if (ship.sideRightOffset || ship.displaySide) {
-    sideRightOffset = ship.sideRightOffset;
-  }
-
-  return <>
-    <table>
-      <tbody>
-        <tr className="top-flap">
-            <td className="model-height" style={{ width: shipHeight, maxWidth: shipHeight }}></td>
-            <td className="model-width render-flap cut-top cut-left cut-right" style={{width:shipWidth, maxWidth:shipWidth}}></td>
+  return (
+    <>
+      <table>
+        <tbody>
+          <tr className="flap-top">
+            <td style={{ width: shipHeight, maxWidth: shipHeight }}></td>
+            <td
+              className="cut-top cut-left cut-right flap-fold"
+              style={{ width: shipWidth, maxWidth: shipWidth }}
+            ></td>
             <td colSpan={3}></td>
-        </tr>
-          <tr className="top model-height-height" style={{ height: shipHeightPlus, maxHeight: shipHeightPlus }}>
-            <td className="model-height flap-left cut-left cut-right cut-top" style={{width:shipHeight, borderTopLeftRadius:shipHeight, maxWidth:shipHeight}}></td>
-            <td className="model-width render cut-left cut-right" style={{width:shipWidth, maxWidth:shipWidth}}>
-                <div className="upsideDown content">
-                <DisplayTop ship={ship} faction={faction} useFactionColor={useFactionColor}/>
-                </div>
+          </tr>
+
+          <tr
+            style={{
+              height: shipHeightWithPadding,
+              maxHeight: shipHeightWithPadding,
+            }}
+          >
+            <td
+              className="flap-left cut-left cut-top"
+              style={{
+                width: shipHeight,
+                borderTopLeftRadius: shipHeight,
+                maxWidth: shipHeight,
+              }}
+            ></td>
+            <td
+              className="cut-left cut-right fold-top"
+              style={{ width: shipWidth, maxWidth: shipWidth }}
+            >
+              <TopPanel {...{ ship, faction, useFactionColor }} />
             </td>
-            <td className="model-height flap-right cut-left cut-right cut-top" style={{width:shipHeight, borderTopRightRadius:shipHeight, maxWidth:shipHeight}}></td>
+            <td
+              className="flap-right cut-right cut-top"
+              style={{
+                width: shipHeight,
+                maxWidth: shipHeight,
+                borderTopRightRadius: shipHeight,
+              }}
+            ></td>
             <td colSpan={2}></td>
-        </tr>
-        <tr className="main model-length"  style={{height:shipLength, maxHeight:shipLength}}>
-            <td className="model-height render cut-left" style={{ width: shipHeight, maxWidth: shipHeight }}>
-                <div className="leftSide sideDisplay" style={{left:`${sideLeftOffset}mm`}}>
-                <DisplaySide ship={ship} faction={faction} useFactionColor={useFactionColor}/>
-                </div>
+          </tr>
+
+          <tr style={{ height: shipLength, maxHeight: shipLength }}>
+            <td
+              className="fold-top fold-bottom cut-left"
+              style={{ width: shipHeight, maxWidth: shipHeight }}
+            >
+              <LeftSidePanel {...{ ship, faction, useFactionColor }} />
             </td>
-            <td className="model-width render" style={{width:shipWidth, maxWidth:shipWidth}}>
-              <Display ship={ship} faction={faction} useFactionColor={useFactionColor}/>
+            <td
+              className="fold-top fold-right fold-left fold-bottom"
+              style={{ width: shipWidth, maxWidth: shipWidth }}
+            >
+              <PrimaryPanel {...{ ship, faction, useFactionColor }} />
             </td>
-            <td className="model-height render" style={{ width: shipHeight, maxWidth: shipHeight }}>
-                <div className="rightSide sideDisplay" style={{left:`${sideRightOffset}mm`}}>
-                <DisplaySide ship={ship} faction={faction} useFactionColor={useFactionColor}/>
-                </div>
+            <td
+              className="fold-top fold-bottom fold-right"
+              style={{ width: shipHeight, maxWidth: shipHeight }}
+            >
+              <RightSidePanel {...{ ship, faction, useFactionColor }} />
             </td>
-            <td className="model-width render cut-top" style={{width:shipWidth, maxWidth:shipWidth}}>
-                <Display ship={ship} faction={faction} useFactionColor={useFactionColor}/>
+            <td
+              className="fold-right fold-bottom cut-top"
+              style={{ width: shipWidth, maxWidth: shipWidth }}
+            >
+              <PrimaryPanel {...{ ship, faction, useFactionColor }} />
             </td>
-            <td className="side-flap render cut-top cut-bottom cut-right glue"></td>
+            <td className="flap-side cut-top cut-bottom cut-right glue"></td>
             <td></td>
-        </tr>
-        <tr className="model-height-height" style={{height:shipHeightPlus}}>
-            <td className="model-height render cut-left cut-bottom cut-right glue" style={{ width: shipHeight, maxWidth: shipHeight }}>
+          </tr>
+
+          <tr style={{ height: shipHeightWithPadding }}>
+            <td
+              className="cut-left cut-bottom glue"
+              style={{ width: shipHeight, maxWidth: shipHeight }}
+            ></td>
+            <td
+              className="cut-bottom cut-right cut-left"
+              style={{ width: shipWidth, maxWidth: shipWidth }}
+            >
+              <BottomPanel {...{ ship, faction, useFactionColor }} />
             </td>
-            <td className="model-width render cut-left cut-bottom cut-right" style={{width:shipWidth, maxWidth:shipWidth}}>
-            <div className="content">
-                <DisplayTop ship={ship} faction={faction} useFactionColor={useFactionColor}/>
-            </div>
-            </td>
-            <td className="model-height render cut-left cut-bottom cut-right glue" style={{width:shipHeight, maxWidth:shipHeight}}>
-            </td>
-            <td className="model-width render cut-left cut-bottom cut-right glue" style={{width:shipWidth, maxWidth:shipWidth}}>
-            </td>
+            <td
+              className="cut-bottom cut-right glue"
+              style={{ width: shipHeight, maxWidth: shipHeight }}
+            ></td>
+            <td
+              className="cut-bottom cut-right glue"
+              style={{ width: shipWidth, maxWidth: shipWidth }}
+            ></td>
             <td></td>
-        </tr>
-      </tbody>
-    </table>
-  </>
-}
+          </tr>
+        </tbody>
+      </table>
+    </>
+  );
+};

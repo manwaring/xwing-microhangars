@@ -1,1043 +1,2147 @@
+export enum Factions {
+  REBEL_ALLIANCE = "Rebel Alliance",
+  GALACTIC_EMPIRE = "Galactic Empire",
+  SCUM_AND_VILLAINY = "Scum and Villainy",
+  RESISTANCE = "Resistance",
+  FIRST_ORDER = "First Order",
+  GALACTIC_REPUBLIC = "Galactic Republic",
+  SEPARATIST_ALLIANCE = "Separatist Alliance",
+}
+
 export interface Faction {
-  name: string;
+  name: Factions;
   icon: string;
   color: string;
 }
 
+export const factions: Faction[] = [
+  {
+    name: Factions.FIRST_ORDER,
+    icon: "+",
+    color: "#000000",
+  },
+  {
+    name: Factions.GALACTIC_EMPIRE,
+    icon: "@",
+    color: "#567086",
+  },
+  {
+    name: Factions.GALACTIC_REPUBLIC,
+    icon: "/",
+    color: "#651616",
+  },
+  {
+    name: Factions.REBEL_ALLIANCE,
+    icon: "!",
+    color: "#CD3E43",
+  },
+  {
+    name: Factions.RESISTANCE,
+    icon: "-",
+    color: "#E55B05",
+  },
+  {
+    name: Factions.SEPARATIST_ALLIANCE,
+    icon: ".",
+    color: "#15155F",
+  },
+  {
+    name: Factions.SCUM_AND_VILLAINY,
+    icon: "#",
+    color: "#C26422",
+  },
+];
+
+export interface Panel {
+  factionIconSize: number;
+  shipIconSize: number;
+  shipIconMargin?: number;
+  leftOffset?: number;
+  rightOffset?: number;
+}
+
+export enum ShipSizes {
+  SMALL,
+  MEDIUM,
+  LARGE,
+}
+
 export interface Ship {
   name: string;
+  icon: string;
+  iconMargin?: number;
+  factions: string[];
   fullName?: string;
   modifier?: string;
-  icon: string;
-  height: number;
-  width: number;
-  length: number;
-  sideLeftOffset?: number;
-  sideRightOffset?: number;
-  displaySide?: boolean;
-  displayTop?: boolean;
-  displayFactionSize: number;
-  displayIconSize: number;
-  displaySideFactionSize?: number;
-  displaySideIconSize?: number;
-  displayTopFactionSize?: number;
-  displayTopIconSize?: number;
-  factions: string[];
+
+  dimensions: {
+    size: ShipSizes;
+    height: number;
+    width: number;
+    length: number;
+  };
+
+  panels: {
+    primary: Panel;
+    sides?: Panel;
+    topAndBottom?: Panel;
+  };
 }
 
-interface Data {
-  factions: Faction[];
-  ships: Ship[];
-}
-
-export const data: Data = {
-  "factions": [
-    {
-      "name": "Rebel Alliance",
-      "icon": "!",
-      "color": "#CD3E43"
-    },
-    {
-      "name": "Galactic Empire",
-      "icon": "@",
-      "color": "#567086"
-    },
-    {
-      "name": "Scum and Villainy",
-      "icon": "#",
-      "color": "#C26422"
-    },
-    {
-      "name": "Resistance",
-      "icon": "-",
-      "color": "#E55B05"
-    },
-    {
-      "name": "First Order",
-      "icon": "+",
-      "color": "#000000"
-    },
-    {
-      "name": "Galactic Republic",
-      "icon": "/",
-      "color": "#651616"
-    },
-    {
-      "name": "Seperatist Alliance",
-      "icon": ".",
-      "color": "#15155F"
-    }
-  ],
-  "ships": [
-    {
-      "name": "Belbullab-22 Starfighter",
-      "icon": "[",
-      "height": 14,
-      "width": 22,
-      "length": 33,
-      "sideLeftOffset": -7,
-      "displayFactionSize": 5,
-      "displayIconSize": 21,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 7,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 4,
-      "factions": ["Seperatist Alliance"]
-    },
-    {
-      "name": "Droid Tri-Fighter",
-      "icon": "+",
-      "height": 21,
-      "width": 19,
-      "length": 29,
-      "sideLeftOffset": 0,
-      "sideRightOffset": 2,
-      "displayFactionSize": 5,
-      "displayIconSize": 19,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 16,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 13,
-      "factions": ["Seperatist Alliance"]
-    },
-    {
-      "name": "HMP Droid Gunship",
-      "icon": ".",
-      "height": 13,
-      "width": 43,
-      "length": 55,
-      "sideLeftOffset": -4.5,
-      "displayFactionSize": 5,
-      "displayIconSize": 46,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 7,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 5,
-      "factions": ["Seperatist Alliance"]
-    },
-    {
-      "name": "Hyena-Class Droid Bomber",
-      "icon": "=",
-      "height": 13,
-      "width": 33,
-      "length": 47,
-      "sideLeftOffset": -8.5,
-      "displayFactionSize": 5,
-      "displayIconSize": 38,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 7,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 5,
-      "factions": ["Seperatist Alliance"]
-    },
-    {
-      "name": "Nantex-Class Starfighter",
-      "icon": ";",
-      "height": 10,
-      "width": 20,
-      "length": 42,
-      "displayTop": false,
-      "displaySide": false,
-      "displayFactionSize": 5,
-      "displayIconSize": 29,
-      "factions": ["Seperatist Alliance"]
-    },
-    {
-      "name": "Vulture-class Droid Fighter",
-      "icon": "_",
-      "height": 16,
-      "width": 24,
-      "length": 34,
-      "sideLeftOffset": -7,
-      "displayFactionSize": 5,
-      "displayIconSize": 22,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 9,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 5,
-      "factions": ["Seperatist Alliance"]
-    },
-    {
-      "name": "TIE Interceptor",
-      "icon": "I",
-      "height": 25,
-      "width": 32,
-      "length": 40,
-      "sideLeftOffset": 3,
-      "displayFactionSize": 5,
-      "displayIconSize": 28,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 16,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 15,
-      "factions": ["Galactic Empire"]
-    },
-    {
-      "name": "TIE/D Defender",
-      "icon": "D",
-      "height": 42,
-      "width": 42,
-      "length": 38,
-      "sideLeftOffset": 10,
-      "displayFactionSize": 5,
-      "displayIconSize": 26,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 28,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 32,
-      "factions": ["Galactic Empire"]
-    },
-    {
-      "name": "RZ-1 A-Wing",
-      "icon": "a",
-      "height": 15,
-      "width": 27,
-      "length": 39,
-      "displayFactionSize": 5,
-      "displayIconSize": 27,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 6,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 4,
-      "factions": ["Rebel Alliance"]
-    },
-    {
-      "name": "A/SF-01 B-Wing",
-      "modifier": "(Folding Wings)",
-      "icon": "b",
-      "height": 15,
-      "width": 32,
-      "length": 65,
-      "sideLeftOffset": -3,
-      "displayFactionSize": 5,
-      "displayIconSize": 52,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 6,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 4,
-      "factions": ["Rebel Alliance"]
-    },
-    {
-      "name": "HWK-290 Light Freighter",
-      "icon": "h",
-      "height": 18,
-      "width": 52,
-      "length": 66,
-      "sideLeftOffset": -8,
-      "sideRightOffset": -3,
-      "displayFactionSize": 5,
-      "displayIconSize": 54,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 15,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 12,
-      "factions": ["Rebel Alliance", "Scum and Villainy"]
-    },
-    {
-      "name": "BTL-A4 Y-Wing",
-      "modifier": "(2.0 Sculpt)",
-      "icon": "y",
-      "height": 17,
-      "width": 33,
-      "length": 63,
-      "sideLeftOffset": -1,
-      "displayFactionSize": 5,
-      "displayIconSize": 47,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 9,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 7,
-      "factions": ["Rebel Alliance", "Scum and Villainy"]
-    },
-    {
-      "name": "TIE/rb Heavy",
-      "icon": "J",
-      "height": 42,
-      "width": 62,
-      "length": 56,
-      "sideLeftOffset": 5,
-      "sideRightOffset": 12,
-      "displayFactionSize": 5,
-      "displayIconSize": 47,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 40,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 35,
-      "factions": ["Galactic Empire"]
-    },
-    {
-      "name": "Aggressor Assault Fighter",
-      "icon": "i",
-      "height": 19,
-      "width": 60,
-      "length": 77,
-      "sideLeftOffset": -6,
-      "sideRightOffset": -4,
-      "displayFactionSize": 5,
-      "displayIconSize": 67,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 12,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 12,
-      "factions": ["Scum and Villainy"]
-    },
-    {
-      "name": "Kihraxz Fighter",
-      "icon": "r",
-      "height": 13,
-      "width": 38,
-      "length": 46,
-      "sideLeftOffset": -3,
-      "sideRightOffset": -1,
-      "displayFactionSize": 5,
-      "displayIconSize": 36,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 6,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 7,
-      "factions": ["Scum and Villainy"]
-    },
-    {
-      "name": "BTL-A4 Y-Wing",
-      "modifier": "(1.0 Sculpt)",
-      "icon": "y",
-      "height": 14,
-      "width": 32,
-      "length": 63,
-      "sideLeftOffset": -2,
-      "sideRightOffset": -1,
-      "displayFactionSize": 5,
-      "displayIconSize": 47,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 9,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 7,
-      "factions": ["Rebel Alliance", "Scum and Villainy"]
-    },
-    {
-      "name": "M3-A Interceptor",
-      "icon": "s",
-      "height": 13,
-      "width": 33,
-      "length": 37,
-      "sideLeftOffset": -5,
-      "sideRightOffset": -2,
-      "displayFactionSize": 5,
-      "displayIconSize": 27,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 9,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 7,
-      "factions": ["Scum and Villainy"]
-    },
-    {
-      "name": "Scurrg H-6 Bomber",
-      "icon": "H",
-      "height": 21,
-      "width": 52,
-      "length": 77,
-      "sideLeftOffset": -2,
-      "sideRightOffset": 1,
-      "displayFactionSize": 5,
-      "displayIconSize": 40,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 16,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 12,
-      "factions": ["Scum and Villainy"]
-    },
-    {
-      "name": "StarViper-class Attack Platform",
-      "icon": "v",
-      "height": 27,
-      "width": 39,
-      "length": 69,
-      "sideLeftOffset": -6,
-      "sideRightOffset": -3,
-      "displayFactionSize": 5,
-      "displayIconSize": 58,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 19,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 17,
-      "factions": ["Scum and Villainy"]
-    },
-    {
-      "name": "Quadrijet Transfer Spacetug",
-      "icon": "q",
-      "height": 26,
-      "width": 49,
-      "length": 40,
-      "sideLeftOffset": -4,
-      "sideRightOffset": -2,
-      "displayFactionSize": 5,
-      "displayIconSize": 30,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 19,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 18,
-      "factions": ["Scum and Villainy"]
-    },
-    {
-      "name": "Mining Guild TIE Fighter",
-      "icon": "C",
-      "height": 28,
-      "width": 36,
-      "length": 43,
-      "sideLeftOffset": -1,
-      "sideRightOffset": 3,
-      "displayFactionSize": 5,
-      "displayIconSize": 33,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 23,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 17,
-      "factions": ["Scum and Villainy"]
-    },
-    {
-      "name": "M12-L Kimogila Fighter",
-      "icon": "K",
-      "height": 23,
-      "width": 58,
-      "length": 55,
-      "sideLeftOffset": -1,
-      "displayFactionSize": 5,
-      "displayIconSize": 47,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 9,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 7,
-      "factions": ["Scum and Villainy"]
-    },
-    {
-      "name": "Fang Fighter",
-      "modifier": "(1.0 Sculpt)",
-      "icon": "M",
-      "height": 15,
-      "width": 44,
-      "length": 46,
-      "sideLeftOffset": 0,
-      "sideRightOffset": 1,
-      "displayFactionSize": 5,
-      "displayIconSize": 37,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 9,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 7,
-      "factions": ["Scum and Villainy"]
-    },
-    {
-      "name": "G-1A Starfighter",
-      "icon": "n",
-      "height": 35,
-      "width": 44,
-      "length": 68,
-      "sideLeftOffset": 6,
-      "sideRightOffset": 9,
-      "displayFactionSize": 5,
-      "displayIconSize": 57,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 29,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 26,
-      "factions": ["Scum and Villainy"]
-    },
-    {
-      "name": "Z-95-AF4 Headhunter",
-      "icon": "z",
-      "height": 16,
-      "width": 35,
-      "length": 46,
-      "sideLeftOffset": -5,
-      "displayFactionSize": 5,
-      "displayIconSize": 37,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 9,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 7,
-      "factions": ["Rebel Alliance", "Scum and Villainy"]
-    },
-    {
-      "name": "TIE Advanced x1",
-      "icon": "A",
-      "height": 21,
-      "width": 34,
-      "length": 32,
-      "sideLeftOffset": 0,
-      "sideRightOffset": 3,
-      "displayFactionSize": 5,
-      "displayIconSize": 23,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 18,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 12,
-      "factions": ["Galactic Empire"]
-    },
-    {
-      "name": "TIE Advanced v1",
-      "icon": "R",
-      "height": 19,
-      "width": 34,
-      "length": 31,
-      "sideLeftOffset": 1,
-      "displayFactionSize": 5,
-      "displayIconSize": 20,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 11,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 10,
-      "factions": ["Galactic Empire"]
-    },
-    {
-      "name": "TIE/sk Striker",
-      "icon": "T",
-      "height": 18,
-      "width": 38,
-      "length": 64,
-      "sideLeftOffset": 0,
-      "sideRightOffset": 2,
-      "displayFactionSize": 5,
-      "displayIconSize": 26,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 12,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 10,
-      "factions": ["Galactic Empire"]
-    },
-    {
-      "name": "TIE/ag Aggressor",
-      "icon": "`",
-      "height": 24,
-      "width": 32,
-      "length": 35,
-      "sideLeftOffset": 2,
-      "displayFactionSize": 5,
-      "displayIconSize": 25,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 16,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 15,
-      "factions": ["Galactic Empire"]
-    },
-    {
-      "name": "TIE/ph Phantom",
-      "icon": "P",
-      "height": 25,
-      "width": 30,
-      "length": 43,
-      "sideLeftOffset": 1,
-      "sideRightOffset": 5,
-      "displayFactionSize": 5,
-      "displayIconSize": 26,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 22,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 12,
-      "factions": ["Galactic Empire"]
-    },
-    {
-      "name": "TIE/ln Fighter",
-      "icon": "F",
-      "height": 34,
-      "width": 36,
-      "length": 44,
-      "sideLeftOffset": 8,
-      "sideRightOffset": 10,
-      "displayFactionSize": 5,
-      "displayIconSize": 26,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 28,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 22,
-      "factions": ["Galactic Empire", "Rebel Alliance"]
-    },
-    {
-      "name": "TIE/sa Bomber",
-      "icon": "B",
-      "height": 24,
-      "width": 45,
-      "length": 40,
-      "sideLeftOffset": 3,
-      "displayFactionSize": 5,
-      "displayIconSize": 26,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 16,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 16,
-      "factions": ["Galactic Empire"]
-    },
-    {
-      "name": "TIE/ca Punisher",
-      "icon": "N",
-      "height": 30,
-      "width": 56,
-      "length": 47,
-      "sideLeftOffset": 3,
-      "sideRightOffset": 10,
-      "displayFactionSize": 5,
-      "displayIconSize": 26,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 28,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 22,
-      "factions": ["Galactic Empire"]
-    },
-    {
-      "name": "TIE Reaper",
-      "icon": "V",
-      "height": 22,
-      "width": 56,
-      "length": 90,
-      "sideLeftOffset": 5,
-      "displayFactionSize": 5,
-      "displayIconSize": 76,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 10,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 12,
-      "factions": ["Galactic Empire"]
-    },
-    {
-      "name": "Alpha-class Star Wing",
-      "icon": "&",
-      "height": 34,
-      "width": 36,
-      "length": 65,
-      "sideLeftOffset": 3,
-      "sideRightOffset": 6,
-      "displayFactionSize": 5,
-      "displayIconSize": 26,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 28,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 32,
-      "factions": ["Galactic Empire"]
-    },
-    {
-      "name": "A/SF-01 B-Wing",
-      "modifier": "(Fixed Wings)",
-      "icon": "b",
-      "height": 32,
-      "width": 38,
-      "length": 58,
-      "sideLeftOffset": 5,
-      "sideRightOffset": 9,
-      "displayFactionSize": 5,
-      "displayIconSize": 52,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 28,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 24,
-      "factions": ["Rebel Alliance"]
-    },
-    {
-      "name": "T-65 X-Wing",
-      "modifier": "(Fixed Wings)",
-      "icon": "x",
-      "height": 18,
-      "width": 41,
-      "length": 49,
-      "sideLeftOffset": 0,
-      "sideRightOffset": 4,
-      "displayFactionSize": 5,
-      "displayIconSize": 40,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 14,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 4,
-      "factions": ["Rebel Alliance"]
-    },
-    {
-      "name": "T-65 X-Wing",
-      "modifier": "(Folding Wings)",
-      "icon": "x",
-      "height": 14,
-      "width": 40,
-      "length": 49,
-      "sideLeftOffset": 0,
-      "sideRightOffset": 0,
-      "displayFactionSize": 5,
-      "displayIconSize": 40,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 6,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 4,
-      "factions": ["Rebel Alliance"]
-    },
-    {
-      "name": "ARC-170 Starfighter",
-      "icon": "c",
-      "height": 21,
-      "width": 54,
-      "length": 83,
-      "sideLeftOffset": -3,
-      "sideRightOffset": 1,
-      "displayFactionSize": 5,
-      "displayIconSize": 52,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 18,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 13,
-      "factions": ["Rebel Alliance", "Galactic Republic"]
-    },
-    {
-      "name": "Attack Shuttle",
-      "icon": "g",
-      "height": 18,
-      "width": 29,
-      "length": 46,
-      "sideLeftOffset": -1,
-      "sideRightOffset": 1,
-      "displayFactionSize": 5,
-      "displayIconSize": 37,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 13,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 10,
-      "factions": ["Rebel Alliance"]
-    },
-    {
-      "name": "Auzituck Gunship",
-      "icon": "@",
-      "height": 25,
-      "width": 32,
-      "length": 57,
-      "sideLeftOffset": 2,
-      "sideRightOffset": 4,
-      "displayFactionSize": 5,
-      "displayIconSize": 37,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 20,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 17,
-      "factions": ["Rebel Alliance"]
-    },
-    {
-      "name": "UT-60D U-Wing",
-      "icon": "u",
-      "height": 23,
-      "width": 35,
-      "length": 91,
-      "sideLeftOffset": 3,
-      "displayFactionSize": 5,
-      "displayIconSize": 42,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 16,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 14,
-      "factions": ["Rebel Alliance"]
-    },
-    {
-      "name": "Sheathipede-class Shuttle",
-      "icon": "%",
-      "height": 20,
-      "width": 24,
-      "length": 43,
-      "sideLeftOffset": -4,
-      "sideRightOffset": -4,
-      "displayFactionSize": 5,
-      "displayIconSize": 31,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 10,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 4,
-      "factions": ["Rebel Alliance", "Seperatist Alliance"]
-    },
-    {
-      "name": "TIE/FO Fighter",
-      "icon": "O",
-      "height": 33,
-      "width": 35,
-      "length": 39,
-      "sideLeftOffset": 8,
-      "displayFactionSize": 5,
-      "displayIconSize": 28,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 26,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 22,
-      "factions": ["First Order"]
-    },
-    {
-      "name": "TIE/SF Fighter",
-      "icon": "S",
-      "height": 33,
-      "width": 35,
-      "length": 39,
-      "sideLeftOffset": 8,
-      "displayFactionSize": 5,
-      "displayIconSize": 29,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 26,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 24,
-      "factions": ["First Order"]
-    },
-    {
-      "name": "TIE/vn Silencer",
-      "icon": "$",
-      "height": 24,
-      "width": 43,
-      "length": 80,
-      "sideLeftOffset": 3,
-      "displayFactionSize": 5,
-      "displayIconSize": 58,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 16,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 16,
-      "factions": ["First Order"]
-    },
-    {
-      "name": "TIE/Ba Interceptor",
-      "icon": "j",
-      "height": 26,
-      "width": 34,
-      "length": 41,
-      "sideLeftOffset": 0,
-      "sideRightOffset": 4,
-      "displayFactionSize": 5,
-      "displayIconSize": 32,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 22,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 18,
-      "factions": ["First Order"]
-    },
-    {
-      "name": "Xi-class Light Shuttle",
-      "icon": "Q",
-      "height": 45,
-      "width": 85,
-      "length": 72,
-      "sideLeftOffset": -3,
-      "displayFactionSize": 5,
-      "displayIconSize": 52,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 6,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 4,
-      "factions": ["First Order"]
-    },
-    {
-      "name": "Delta-7 Aethersprite",
-      "icon": "\\",
-      "height": 16,
-      "width": 29,
-      "length": 39,
-      "sideLeftOffset": -4,
-      "displayFactionSize": 5,
-      "displayIconSize": 30,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 9,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 8,
-      "factions": ["Galactic Republic"]
-    },
-    {
-      "name": "Naboo Royal N-1 Starfighter",
-      "icon": "<",
-      "height": 14,
-      "width": 30,
-      "length": 53,
-      "sideLeftOffset": -10,
-      "sideRightOffset": -8,
-      "displayFactionSize": 5,
-      "displayIconSize": 38,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 8,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 4,
-      "factions": ["Galactic Republic"]
-    },
-    {
-      "name": "Syliure-class Hyperspace Ring",
-      "icon": "*",
-      "height": 22,
-      "width": 38,
-      "length": 43,
-      "sideLeftOffset": -7,
-      "sideRightOffset": -5,
-      "displayFactionSize": 5,
-      "displayIconSize": 34,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 16,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 14,
-      "factions": ["Galactic Republic"]
-    },
-    {
-      "name": "Eta-2 Actis",
-      "modifier": "in Syliure-class Hyperspace Ring",
-      "icon": "-*",
-      "height": 27,
-      "width": 38,
-      "length": 43,
-      "sideLeftOffset": 0,
-      "sideRightOffset": 2,
-      "displayFactionSize": 5,
-      "displayIconSize": 21,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 16,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 19,
-      "factions": ["Galactic Republic"]
-    },
-    {
-      "name": "Eta-2 Actis",
-      "icon": "-",
-      "height": 15,
-      "width": 24,
-      "length": 27,
-      "sideLeftOffset": 0,
-      "displayFactionSize": 5,
-      "displayIconSize": 18,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 8,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 7,
-      "factions": ["Galactic Republic"]
-    },
-    {
-      "name": "V-19 Torrent",
-      "icon": "^",
-      "height": 27,
-      "width": 32,
-      "length": 58,
-      "sideLeftOffset": 6,
-      "displayFactionSize": 5,
-      "displayIconSize": 48,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 16,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 18,
-      "factions": ["Galactic Republic"]
-    },
-    {
-      "name": "BTL-B Y-Wing",
-      "icon": ":",
-      "height": 16,
-      "width": 34,
-      "length": 72,
-      "sideLeftOffset": 0,
-      "displayFactionSize": 5,
-      "displayIconSize": 52,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 6,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 4,
-      "factions": ["Galactic Republic"]
-    },
-    {
-      "name": "LAAT/i Gunship",
-      "icon": "/",
-      "height": 30,
-      "width": 60,
-      "length": 69,
-      "sideLeftOffset": 6,
-      "displayFactionSize": 5,
-      "displayIconSize": 58,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 20,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 22,
-      "factions": ["Galactic Republic"]
-    },
-    {
-      "name": "Fireball",
-      "icon": "0",
-      "height": 16,
-      "width": 50,
-      "length": 49,
-      "sideLeftOffset": 3,
-      "displayFactionSize": 5,
-      "displayIconSize": 38,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 6,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 7,
-      "factions": ["Resistance"]
-    },
-    {
-      "name": "T-70 X-Wing",
-      "modifier": "(Fixed Wings)",
-      "icon": "w",
-      "height": 17,
-      "width": 44,
-      "length": 48,
-      "sideLeftOffset": 0,
-      "sideRightOffset": 2,
-      "displayFactionSize": 5,
-      "displayIconSize": 37,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 10,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 7,
-      "factions": ["Resistance"]
-    },
-    {
-      "name": "T-70 X-Wing",
-      "modifier": "(Folding Wings)",
-      "icon": "w",
-      "height": 15,
-      "width": 44,
-      "length": 48,
-      "sideLeftOffset": 0,
-      "sideRightOffset": 1,
-      "displayFactionSize": 5,
-      "displayIconSize": 37,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 8,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 4,
-      "factions": ["Resistance"]
-    },
-    {
-      "name": "RZ-2 A-Wing",
-      "icon": "E",
-      "height": 16,
-      "width": 23,
-      "length": 38,
-      "sideLeftOffset": 0,
-      "sideRightOffset": 2,
-      "displayFactionSize": 5,
-      "displayIconSize": 28,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 9,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 8,
-      "factions": ["Resistance"]
-    },
-    {
-      "name": "Resistance Transport",
-      "icon": ">",
-      "height": 23,
-      "width": 37,
-      "length": 68,
-      "sideLeftOffset": -3,
-      "sideRightOffset": 2,
-      "displayFactionSize": 5,
-      "displayIconSize": 38,
-      "displaySideFactionSize": 4,
-      "displaySideIconSize": 20,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 12,
-      "factions": ["Resistance"]
-    },
-    {
-      "name": "Resistance Transport Pod",
-      "icon": "?",
-      "height": 14,
-      "width": 21,
-      "length": 23,
-      "displaySide": false,
-      "displayFactionSize": 4,
-      "displayIconSize": 12,
-      "displaySideFactionSize": 2,
-      "displaySideIconSize": 20,
-      "displayTopFactionSize": 4,
-      "displayTopIconSize": 0,
-      "factions": ["Resistance"]
-    }
-  ]
-}
+export const ships: Ship[] = [
+  {
+    name: "A/SF-01 B-Wing",
+    modifier: "(Fixed Wings)",
+    icon: "b",
+    iconMargin: -20,
+    factions: [Factions.REBEL_ALLIANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 32,
+      width: 38,
+      length: 58,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 52,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 28,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 28,
+      },
+    },
+  },
+  {
+    name: "A/SF-01 B-Wing",
+    modifier: "(Folding Wings)",
+    icon: "b",
+    iconMargin: -10,
+    factions: [Factions.REBEL_ALLIANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 15,
+      width: 32,
+      length: 65,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 52,
+      },
+      sides: {
+        factionIconSize: 3,
+        shipIconSize: 8,
+      },
+      topAndBottom: {
+        factionIconSize: 3,
+        shipIconSize: 8,
+      },
+    },
+  },
+  {
+    name: "Alpha-class Star Wing",
+    icon: "&",
+    iconMargin: -20,
+    factions: [Factions.GALACTIC_EMPIRE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 34,
+      width: 36,
+      length: 65,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 26,
+        shipIconMargin: -10,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 28,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 32,
+      },
+    },
+  },
+  {
+    name: "Aggressor Assault Fighter",
+    icon: "i",
+    iconMargin: -10,
+    factions: [Factions.SCUM_AND_VILLAINY],
+    dimensions: {
+      size: ShipSizes.MEDIUM,
+      height: 19,
+      width: 60,
+      length: 77,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 67,
+        shipIconMargin: -25,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 12,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 12,
+      },
+    },
+  },
+  {
+    name: "ARC-170 Starfighter",
+    icon: "c",
+    iconMargin: -25,
+    factions: [Factions.REBEL_ALLIANCE, Factions.GALACTIC_REPUBLIC],
+    dimensions: {
+      size: ShipSizes.MEDIUM,
+      height: 21,
+      width: 54,
+      length: 83,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 52,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 18,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 18,
+      },
+    },
+  },
+  {
+    name: "Attack Shuttle",
+    icon: "g",
+    iconMargin: -10,
+    factions: [Factions.REBEL_ALLIANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 18,
+      width: 29,
+      length: 46,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 37,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 13,
+        leftOffset: -1,
+        rightOffset: 1,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 10,
+      },
+    },
+  },
+  {
+    name: "Auzituck Gunship",
+    icon: "@",
+    iconMargin: -12,
+    factions: [Factions.REBEL_ALLIANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 25,
+      width: 32,
+      length: 57,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 37,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 20,
+        leftOffset: 2,
+        rightOffset: 4,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 17,
+      },
+    },
+  },
+  {
+    name: "B/SF-17 Bomber",
+    icon: "Z",
+    factions: [Factions.RESISTANCE],
+    dimensions: {
+      size: ShipSizes.LARGE,
+      height: 58,
+      width: 81,
+      length: 112,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 4,
+        shipIconSize: 70,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 30,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 15,
+      },
+    },
+  },
+  {
+    name: "Belbullab-22 Starfighter",
+    icon: "[",
+    factions: [Factions.SEPARATIST_ALLIANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 14,
+      width: 22,
+      length: 33,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 21,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 7,
+        leftOffset: -7,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 4,
+      },
+    },
+  },
+  {
+    name: "BTA-NR2 Y-Wing",
+    icon: "{",
+    factions: [Factions.RESISTANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 17,
+      width: 35,
+      length: 69,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 38,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 12,
+        leftOffset: -3,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 10,
+      },
+    },
+  },
+  {
+    name: "BTL-A4 Y-Wing",
+    modifier: "(1.0 Sculpt)",
+    icon: "y",
+    iconMargin: -5,
+    factions: [Factions.REBEL_ALLIANCE, Factions.SCUM_AND_VILLAINY],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 14,
+      width: 32,
+      length: 63,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 47,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 9,
+        shipIconMargin: -10,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 7,
+      },
+    },
+  },
+  {
+    name: "BTL-A4 Y-Wing",
+    modifier: "(2.0 Sculpt)",
+    icon: "y",
+    iconMargin: -5,
+    factions: [Factions.REBEL_ALLIANCE, Factions.SCUM_AND_VILLAINY],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 17,
+      width: 33,
+      length: 63,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 47,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 9,
+        shipIconMargin: -10,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 7,
+      },
+    },
+  },
+  {
+    name: "BTL-B Y-Wing",
+    icon: ":",
+    factions: [Factions.GALACTIC_REPUBLIC],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 16,
+      width: 34,
+      length: 72,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 52,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 6,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 4,
+      },
+    },
+  },
+  // {
+  //   name: "Customized YT-1300 Light Freighter",
+  //   icon: "W",
+  //   factions: [Factions.SCUM_AND_VILLAINY],
+  //   dimensions: {
+  //     size: ShipSizes.LARGE,
+  //     height: 30,
+  //     width: 148,
+  //     length: 100,
+  //   },
+  //   panels: {
+  //     primary: {
+  //       factionIconSize: 4,
+  //       shipIconSize: 82,
+  //     },
+  //     sides: {
+  //       factionIconSize: 2,
+  //       shipIconSize: 20,
+  //     },
+  //     topAndBottom: {
+  //       factionIconSize: 4,
+  //       shipIconSize: 18,
+  //     },
+  //   },
+  // },
+  {
+    name: "Delta-7 Aethersprite",
+    icon: "\\",
+    factions: [Factions.GALACTIC_REPUBLIC],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 14,
+      width: 26,
+      length: 36,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 30,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 9,
+        leftOffset: -6,
+        rightOffset: -4,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 8,
+      },
+    },
+  },
+  {
+    name: "Droid Tri-Fighter",
+    icon: "+",
+    factions: [Factions.SEPARATIST_ALLIANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 21,
+      width: 19,
+      length: 29,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 19,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 16,
+        rightOffset: 2,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 13,
+      },
+    },
+  },
+  {
+    name: "Eta-2 Actis",
+    icon: "-",
+    factions: [Factions.GALACTIC_REPUBLIC],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 15,
+      width: 24,
+      length: 27,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 18,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 8,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 7,
+      },
+    },
+  },
+  {
+    name: "Eta-2 Actis",
+    modifier: "in Syliure-class Hyperspace Ring",
+    icon: "-*",
+    factions: [Factions.GALACTIC_REPUBLIC],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 25,
+      width: 38,
+      length: 36,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 21,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 16,
+        rightOffset: 2,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 19,
+      },
+    },
+  },
+  {
+    name: "Fang Fighter",
+    modifier: "(1.0 Sculpt)",
+    icon: "M",
+    iconMargin: -15,
+    factions: [Factions.SCUM_AND_VILLAINY],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 15,
+      width: 44,
+      length: 46,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 37,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 9,
+        rightOffset: 1,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 7,
+      },
+    },
+  },
+  {
+    name: "Fireball",
+    icon: "0",
+    factions: [Factions.RESISTANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 16,
+      width: 50,
+      length: 49,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 38,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 6,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 7,
+      },
+    },
+  },
+  {
+    name: "Firespray-class Patrol Craft",
+    icon: "f",
+    iconMargin: -10,
+    factions: [Factions.SCUM_AND_VILLAINY, Factions.SEPARATIST_ALLIANCE],
+    dimensions: {
+      size: ShipSizes.MEDIUM,
+      height: 35,
+      width: 78,
+      length: 78,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 69,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 25,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 25,
+      },
+    },
+    // orientation: "side",
+  },
+  {
+    name: "G-1A Starfighter",
+    icon: "n",
+    iconMargin: -20,
+    factions: [Factions.SCUM_AND_VILLAINY],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 35,
+      width: 44,
+      length: 68,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 57,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 29,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 26,
+      },
+    },
+  },
+  {
+    name: "HMP Droid Gunship",
+    icon: ".",
+    factions: [Factions.SEPARATIST_ALLIANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 13,
+      width: 43,
+      length: 55,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 46,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 7,
+        leftOffset: -4.5,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 5,
+      },
+    },
+  },
+  {
+    name: "Hyena-Class Droid Bomber",
+    icon: "=",
+    factions: [Factions.SEPARATIST_ALLIANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 13,
+      width: 33,
+      length: 47,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 38,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 7,
+        leftOffset: -8.5,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 5,
+      },
+    },
+  },
+  {
+    name: "HWK-290 Light Freighter",
+    icon: "h",
+    iconMargin: -20,
+    factions: [Factions.REBEL_ALLIANCE, Factions.SCUM_AND_VILLAINY],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 18,
+      width: 52,
+      length: 66,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 54,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 15,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 12,
+        shipIconMargin: -10,
+      },
+    },
+  },
+  {
+    name: "Jumpmaster 5000",
+    icon: "p",
+    iconMargin: -20,
+    factions: [Factions.SCUM_AND_VILLAINY],
+    dimensions: {
+      size: ShipSizes.LARGE,
+      height: 24,
+      width: 80,
+      length: 77,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 75,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 20,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 20,
+      },
+    },
+  },
+  {
+    name: "Kihraxz Fighter",
+    icon: "r",
+    iconMargin: -10,
+    factions: [Factions.SCUM_AND_VILLAINY],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 13,
+      width: 38,
+      length: 46,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 36,
+        shipIconMargin: -15,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 6,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 7,
+      },
+    },
+  },
+  {
+    name: "LAAT/i Gunship",
+    icon: "/",
+    factions: [Factions.GALACTIC_REPUBLIC],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 34,
+      width: 62,
+      length: 64,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 50,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 20,
+        leftOffset: 6,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 22,
+      },
+    },
+  },
+  // {
+  //   name: "Lambda-Class T-4A Shuttle",
+  //   icon: "l",
+  //   factions: [Factions.GALACTIC_EMPIRE],
+  //   dimensions: {
+  //     size: ShipSizes.LARGE,
+  //     height: 46,
+  //     width: 70,
+  //     length: 75,
+  //   },
+  //   panels: {
+  //     primary: {
+  //       factionIconSize: 4,
+  //       shipIconSize: 62,
+  //     },
+  //     sides: {
+  //       factionIconSize: 2,
+  //       shipIconSize: 20,
+  //     },
+  //     topAndBottom: {
+  //       factionIconSize: 4,
+  //       shipIconSize: 35,
+  //     },
+  //   },
+  // },
+  {
+    name: "Lancer-Class Pursuit Craft",
+    icon: "L",
+    iconMargin: -15,
+    factions: [Factions.SCUM_AND_VILLAINY],
+    dimensions: {
+      size: ShipSizes.LARGE,
+      height: 34,
+      width: 120,
+      length: 122,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 82,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 20,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 26,
+      },
+    },
+  },
+  {
+    name: "M12-L Kimogila Fighter",
+    icon: "K",
+    factions: [Factions.SCUM_AND_VILLAINY],
+    dimensions: {
+      size: ShipSizes.MEDIUM,
+      height: 23,
+      width: 58,
+      length: 55,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 47,
+        shipIconMargin: -15,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 10,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 10,
+      },
+    },
+  },
+  {
+    name: "M3-A Interceptor",
+    icon: "s",
+    iconMargin: -10,
+    factions: [Factions.SCUM_AND_VILLAINY],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 13,
+      width: 33,
+      length: 37,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 27,
+        shipIconMargin: -15,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 9,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 7,
+      },
+    },
+  },
+  {
+    name: "Mining Guild TIE Fighter",
+    icon: "C",
+    iconMargin: -10,
+    factions: [Factions.SCUM_AND_VILLAINY],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 28,
+      width: 36,
+      length: 43,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 33,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 20,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 20,
+      },
+    },
+  },
+  // {
+  //   name: "Modified YT-1300 Freighter",
+  //   icon: "m",
+  //   factions: [Factions.REBEL_ALLIANCE],
+  //   dimensions: {
+  //     size: ShipSizes.LARGE,
+  //     height: 34,
+  //     width: 98,
+  //     length: 126,
+  //   },
+  //   panels: {
+  //     primary: {
+  //       factionIconSize: 4,
+  //       shipIconSize: 90,
+  //     },
+  //     sides: {
+  //       factionIconSize: 2,
+  //       shipIconSize: 20,
+  //     },
+  //     topAndBottom: {
+  //       factionIconSize: 4,
+  //       shipIconSize: 25,
+  //     },
+  //   },
+  // },
+  {
+    name: "Naboo Royal N-1 Starfighter",
+    icon: "<",
+    factions: [Factions.GALACTIC_REPUBLIC],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 14,
+      width: 30,
+      length: 53,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 38,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 8,
+        leftOffset: -10,
+        rightOffset: -8,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 4,
+      },
+    },
+  },
+  {
+    name: "Nantex-Class Starfighter",
+    icon: ";",
+    factions: [Factions.SEPARATIST_ALLIANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 10,
+      width: 20,
+      length: 42,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 29,
+      },
+    },
+  },
+  {
+    name: "Nimbus-class V-Wing",
+    icon: ",",
+    factions: [Factions.GALACTIC_REPUBLIC],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 19,
+      width: 33,
+      length: 28,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 18,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 16,
+        leftOffset: -3,
+        rightOffset: 2,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 12,
+      },
+    },
+  },
+  {
+    name: "Quadrijet Transfer Spacetug",
+    icon: "q",
+    iconMargin: -10,
+    factions: [Factions.SCUM_AND_VILLAINY],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 26,
+      width: 49,
+      length: 40,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 30,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 20,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 20,
+      },
+    },
+  },
+  {
+    name: "Resistance Transport",
+    icon: ">",
+    factions: [Factions.RESISTANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 23,
+      width: 37,
+      length: 68,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 38,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 20,
+        leftOffset: -3,
+        rightOffset: 2,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 12,
+      },
+    },
+  },
+  {
+    name: "Resistance Transport Pod",
+    icon: "?",
+    factions: [Factions.RESISTANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 14,
+      width: 21,
+      length: 23,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 4,
+        shipIconSize: 12,
+      },
+      sides: {
+        factionIconSize: 2,
+        shipIconSize: 20,
+        leftOffset: 666,
+        rightOffset: 666,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 0,
+      },
+    },
+    // displaySide: false,
+  },
+  {
+    name: "RZ-1 A-Wing",
+    icon: "a",
+    iconMargin: -5,
+    factions: [Factions.REBEL_ALLIANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 15,
+      width: 27,
+      length: 39,
+    },
+    panels: {
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 4,
+      },
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 27,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 6,
+      },
+    },
+  },
+  {
+    name: "RZ-2 A-Wing",
+    icon: "E",
+    factions: [Factions.RESISTANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 16,
+      width: 23,
+      length: 38,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 28,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 9,
+        rightOffset: 2,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 8,
+      },
+    },
+  },
+  {
+    name: "Scavenged YT-1300 Freighter",
+    icon: "Y",
+    factions: [Factions.RESISTANCE],
+    dimensions: {
+      size: ShipSizes.LARGE,
+      height: 34,
+      width: 98,
+      length: 126,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 4,
+        shipIconSize: 90,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 20,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 25,
+      },
+    },
+  },
+  {
+    name: "Scurrg H-6 Bomber",
+    icon: "H",
+    iconMargin: -10,
+    factions: [Factions.SCUM_AND_VILLAINY],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 21,
+      width: 52,
+      length: 77,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 40,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 16,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 12,
+      },
+    },
+  },
+  {
+    name: "Sheathipede-class Shuttle",
+    icon: "%",
+    iconMargin: -10,
+    factions: [Factions.REBEL_ALLIANCE, Factions.SEPARATIST_ALLIANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 20,
+      width: 24,
+      length: 43,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 31,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 10,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 4,
+      },
+    },
+  },
+  {
+    name: "StarViper-class Attack Platform",
+    icon: "v",
+    iconMargin: -10,
+    factions: [Factions.SCUM_AND_VILLAINY],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 27,
+      width: 39,
+      length: 69,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 58,
+        shipIconMargin: -20,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 19,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 17,
+      },
+    },
+  },
+  {
+    name: "Syliure-class Hyperspace Ring",
+    icon: "*",
+    factions: [Factions.GALACTIC_REPUBLIC],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 22,
+      width: 38,
+      length: 43,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 34,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 16,
+        leftOffset: -7,
+        rightOffset: -5,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 14,
+      },
+    },
+  },
+  {
+    name: "T-65 X-Wing",
+    modifier: "(Fixed Wings)",
+    icon: "x",
+    iconMargin: -15,
+    factions: [Factions.REBEL_ALLIANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 18,
+      width: 41,
+      length: 49,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 40,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 14,
+        shipIconMargin: -20,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 14,
+        shipIconMargin: -25,
+      },
+    },
+  },
+  {
+    name: "T-65 X-Wing",
+    modifier: "(Folding Wings)",
+    icon: "x",
+    iconMargin: -10,
+    factions: [Factions.REBEL_ALLIANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 14,
+      width: 40,
+      length: 49,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 40,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 6,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 10,
+        shipIconMargin: -20,
+      },
+    },
+  },
+  {
+    name: "T-70 X-Wing",
+    modifier: "(Fixed Wings)",
+    icon: "w",
+    factions: [Factions.RESISTANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 17,
+      width: 44,
+      length: 48,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 37,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 10,
+        rightOffset: 2,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 7,
+      },
+    },
+  },
+  {
+    name: "T-70 X-Wing",
+    modifier: "(Folding Wings)",
+    icon: "w",
+    factions: [Factions.RESISTANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 15,
+      width: 44,
+      length: 48,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 37,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 8,
+        rightOffset: 1,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 4,
+      },
+    },
+  },
+  {
+    name: "TIE Advanced v1",
+    icon: "R",
+    iconMargin: -10,
+    factions: [Factions.GALACTIC_EMPIRE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 19,
+      width: 34,
+      length: 31,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 20,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 11,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 10,
+      },
+    },
+  },
+  {
+    name: "TIE Advanced x1",
+    icon: "A",
+    iconMargin: -15,
+    factions: [Factions.GALACTIC_EMPIRE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 21,
+      width: 34,
+      length: 32,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 23,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 18,
+        shipIconMargin: -20,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 12,
+      },
+    },
+  },
+  {
+    name: "TIE Interceptor",
+    icon: "I",
+    iconMargin: -20,
+    factions: [Factions.GALACTIC_EMPIRE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 25,
+      width: 32,
+      length: 40,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 28,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 16,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 15,
+      },
+    },
+  },
+  {
+    name: "TIE Reaper",
+    icon: "V",
+    iconMargin: -20,
+    factions: [Factions.GALACTIC_EMPIRE],
+    dimensions: {
+      size: ShipSizes.MEDIUM,
+      height: 22,
+      width: 56,
+      length: 90,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 76,
+        shipIconMargin: -30,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 10,
+        leftOffset: 5,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 12,
+      },
+    },
+  },
+  {
+    name: "TIE/ag Aggressor",
+    icon: "`",
+    iconMargin: -10,
+    factions: [Factions.GALACTIC_EMPIRE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 24,
+      width: 32,
+      length: 35,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 25,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 16,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 15,
+      },
+    },
+  },
+  {
+    name: "TIE/Ba Interceptor",
+    icon: "j",
+    factions: [Factions.FIRST_ORDER],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 26,
+      width: 34,
+      length: 41,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 32,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 22,
+        rightOffset: 4,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 18,
+      },
+    },
+  },
+  {
+    name: "TIE/ca Punisher",
+    icon: "N",
+    iconMargin: -10,
+    factions: [Factions.GALACTIC_EMPIRE],
+    dimensions: {
+      size: ShipSizes.MEDIUM,
+      height: 30,
+      width: 56,
+      length: 47,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 32,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 28,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 22,
+        shipIconMargin: -5,
+      },
+    },
+  },
+  {
+    name: "TIE/D Defender",
+    icon: "D",
+    iconMargin: -10,
+    factions: [Factions.GALACTIC_EMPIRE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 42,
+      width: 42,
+      length: 38,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 26,
+        shipIconMargin: -5,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 28,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 32,
+      },
+    },
+  },
+  {
+    name: "TIE/FO Fighter",
+    icon: "O",
+    factions: [Factions.FIRST_ORDER],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 33,
+      width: 35,
+      length: 39,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 28,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 26,
+        leftOffset: 8,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 22,
+      },
+    },
+  },
+  {
+    name: "TIE/ln Fighter",
+    icon: "F",
+    iconMargin: -20,
+    factions: [Factions.GALACTIC_EMPIRE, Factions.REBEL_ALLIANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 34,
+      width: 36,
+      length: 44,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 26,
+        shipIconMargin: -10,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 28,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 22,
+      },
+    },
+  },
+  {
+    name: "TIE/ph Phantom",
+    icon: "P",
+    iconMargin: -10,
+    factions: [Factions.GALACTIC_EMPIRE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 25,
+      width: 30,
+      length: 43,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 26,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 22,
+        shipIconMargin: -20,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 12,
+      },
+    },
+  },
+  {
+    name: "TIE/rb Heavy",
+    icon: "J",
+    iconMargin: -10,
+    factions: [Factions.GALACTIC_EMPIRE],
+    dimensions: {
+      size: ShipSizes.MEDIUM,
+      height: 42,
+      width: 62,
+      length: 56,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 47,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 35,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 35,
+      },
+    },
+  },
+  {
+    name: "TIE/sa Bomber",
+    icon: "B",
+    iconMargin: -20,
+    factions: [Factions.GALACTIC_EMPIRE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 24,
+      width: 45,
+      length: 40,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 26,
+        shipIconMargin: -10,
+      },
+      sides: {
+        factionIconSize: 5,
+        shipIconSize: 16,
+      },
+      topAndBottom: {
+        factionIconSize: 5,
+        shipIconSize: 16,
+      },
+    },
+  },
+  {
+    name: "TIE/se Bomber",
+    icon: "!",
+    factions: [Factions.FIRST_ORDER],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 24,
+      width: 63,
+      length: 65,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 52,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 15,
+        leftOffset: 2,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 18,
+      },
+    },
+    // orientation: "side",
+  },
+  {
+    name: "TIE/SF Fighter",
+    icon: "S",
+    factions: [Factions.FIRST_ORDER],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 33,
+      width: 35,
+      length: 39,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 29,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 26,
+        leftOffset: 8,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 24,
+      },
+    },
+  },
+  {
+    name: "TIE/sk Striker",
+    icon: "T",
+    iconMargin: -10,
+    factions: [Factions.GALACTIC_EMPIRE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 18,
+      width: 38,
+      length: 64,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 32,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 12,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 10,
+      },
+    },
+  },
+  {
+    name: "TIE/vn Silencer",
+    icon: "$",
+    factions: [Factions.FIRST_ORDER],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 24,
+      width: 43,
+      length: 80,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 58,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 16,
+        leftOffset: 3,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 16,
+      },
+    },
+  },
+  {
+    name: "TIE/wi Whisper Modified Interceptor",
+    icon: "#",
+    factions: [Factions.FIRST_ORDER],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 23,
+      width: 34,
+      length: 75,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 49,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 20,
+        leftOffset: -11,
+        rightOffset: -7,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 12,
+      },
+    },
+  },
+  {
+    name: "Upsilon-Class Shuttle",
+    icon: "U",
+    factions: [Factions.FIRST_ORDER],
+    dimensions: {
+      size: ShipSizes.LARGE,
+      height: 53,
+      width: 134,
+      length: 65,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 4,
+        shipIconSize: 56,
+      },
+      sides: {
+        factionIconSize: 2,
+        shipIconSize: 20,
+      },
+      topAndBottom: {
+        factionIconSize: 6,
+        shipIconSize: 40,
+      },
+    },
+  },
+  {
+    name: "UT-60D U-Wing",
+    icon: "u",
+    iconMargin: -20,
+    factions: [Factions.REBEL_ALLIANCE],
+    dimensions: {
+      size: ShipSizes.MEDIUM,
+      height: 23,
+      width: 35,
+      length: 91,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 42,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 16,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 14,
+      },
+    },
+  },
+  {
+    name: "V-19 Torrent",
+    icon: "^",
+    factions: [Factions.GALACTIC_REPUBLIC],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 27,
+      width: 32,
+      length: 58,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 48,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 16,
+        leftOffset: 6,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 18,
+      },
+    },
+  },
+  // {
+  //   name: "VCX-100 Light Freighter",
+  //   icon: "G",
+  //   factions: [Factions.REBEL_ALLIANCE],
+  //   dimensions: {
+  //     size: ShipSizes.LARGE,
+  //     height: 55,
+  //     width: 155,
+  //     length: 120,
+  //   },
+  //   panels: {
+  //     primary: {
+  //       factionIconSize: 5,
+  //       shipIconSize: 108,
+  //     },
+  //     sides: {
+  //       factionIconSize: 4,
+  //       shipIconSize: 42,
+  //       leftOffset: -3,
+  //       rightOffset: 2,
+  //     },
+  //     topAndBottom: {
+  //       factionIconSize: 4,
+  //       shipIconSize: 42,
+  //     },
+  //   },
+  // },
+  // {
+  //   name: "VT-49 Decimator",
+  //   icon: "d",
+  //   factions: [Factions.GALACTIC_EMPIRE],
+  //   dimensions: {
+  //     size: ShipSizes.LARGE,
+  //     height: 37,
+  //     width: 97,
+  //     length: 143,
+  //   },
+  //   panels: {
+  //     primary: {
+  //       factionIconSize: 4,
+  //       shipIconSize: 52,
+  //     },
+  //     sides: {
+  //       factionIconSize: 2,
+  //       shipIconSize: 20,
+  //     },
+  //     topAndBottom: {
+  //       factionIconSize: 4,
+  //       shipIconSize: 15,
+  //     },
+  //   },
+  // },
+  {
+    name: "Vulture-class Droid Fighter",
+    icon: "_",
+    factions: [Factions.SEPARATIST_ALLIANCE],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 16,
+      width: 24,
+      length: 34,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 22,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 9,
+        leftOffset: -7,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 5,
+      },
+    },
+  },
+  {
+    name: "Xi-class Light Shuttle",
+    icon: "Q",
+    factions: [Factions.FIRST_ORDER],
+    dimensions: {
+      size: ShipSizes.MEDIUM,
+      height: 43,
+      width: 74,
+      length: 65,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 52,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 35,
+        leftOffset: 5,
+        rightOffset: 10,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 34,
+      },
+    },
+  },
+  // {
+  //   name: "YT-2400",
+  //   icon: "o",
+  //   factions: [Factions.REBEL_ALLIANCE],
+  //   dimensions: {
+  //     size: ShipSizes.LARGE,
+  //     height: 34,
+  //     width: 68,
+  //     length: 102,
+  //   },
+  //   panels: {
+  //     primary: {
+  //       factionIconSize: 4,
+  //       shipIconSize: 60,
+  //     },
+  //     sides: {
+  //       factionIconSize: 2,
+  //       shipIconSize: 25,
+  //     },
+  //     topAndBottom: {
+  //       factionIconSize: 4,
+  //       shipIconSize: 25,
+  //     },
+  //   },
+  // },
+  {
+    name: "Z-95-AF4 Headhunter",
+    icon: "z",
+    iconMargin: -10,
+    factions: [Factions.REBEL_ALLIANCE, Factions.SCUM_AND_VILLAINY],
+    dimensions: {
+      size: ShipSizes.SMALL,
+      height: 16,
+      width: 35,
+      length: 46,
+    },
+    panels: {
+      primary: {
+        factionIconSize: 5,
+        shipIconSize: 37,
+        shipIconMargin: -20,
+      },
+      sides: {
+        factionIconSize: 4,
+        shipIconSize: 9,
+      },
+      topAndBottom: {
+        factionIconSize: 4,
+        shipIconSize: 10,
+      },
+    },
+  },
+];
